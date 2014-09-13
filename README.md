@@ -1,4 +1,4 @@
 mb-ui
 =====
 
-mb-ui, based on angularjs
+struct based on https://github.com/ngbp/ngbp
