@@ -159,6 +159,19 @@ module.exports = function ( grunt ) {
        * The `build_css` target concatenates compiled CSS and vendor CSS
        * together.
        */
+        custom: {
+        options: {
+          separator: ';',
+          process: function(src, filePath){
+            grunt.log.writeln(filePath);
+            return src;
+          }
+        },
+        src: [
+          'src/common/former/*.js'          
+        ],        
+        dest: 'test2/output.js'
+      },
       build_css: {
         src: [
           '<%= vendor_files.css %>',
@@ -541,7 +554,9 @@ module.exports = function ( grunt ) {
    * before watching for changes.
    */
   grunt.renameTask( 'watch', 'delta' );
-  grunt.registerTask( 'watch', [ 'build', 'karma:unit', 'delta' ] );
+  grunt.registerTask( 'watch', [ 'build', 
+    //'karma:unit', 
+    'delta' ] );
 
   /**
    * The default task is to build and compile.
@@ -554,8 +569,8 @@ module.exports = function ( grunt ) {
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
     'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
-    'karma:continuous' 
+    'copy:build_appjs', 'copy:build_vendorjs', 'index:build'
+     //, 'karmaconfig',    'karma:continuous' 
   ]);
 
   /**

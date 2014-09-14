@@ -1,12 +1,13 @@
 {
-  "name": "ng-boilerplate",
-  "version": "0.3.2",
+  "name": "mb-ui",
+  "version": "0.0.0",
   "devDependencies": {
-    "angular": "~1.2",
-    "angular-mocks": "~1.2",
-    "bootstrap": "~3.1",
-    "angular-bootstrap": "~0.10.0",
-    "angular-ui-router": "~0.2"
+    "angular": "~1.2.24",
+    "angular-mocks": "~1.2.24",
+    "bootstrap": "~3.2.0",
+    "angular-bootstrap": "~0.11.0",
+    "angular-ui-router": "~0.2.11",
+    "underscore": "~1.7.0"
   },
   "dependencies": {}
 }
