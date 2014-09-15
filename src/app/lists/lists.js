@@ -12,9 +12,12 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'mb.home', [
+angular.module( 'mb.lists', [
   'ui.router',
-  'former'
+  'mb.lists.new',
+  'mb.lists.all',
+  'mb.lists.service',
+  'mb.lists.factory'  
 ])
 
 /**
@@ -23,22 +26,43 @@ angular.module( 'mb.home', [
  * this way makes each module more "self-contained".
  */
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'home', {
-    url: '/home',
+  $stateProvider.state( 'lists', {
+    url: '/lists',
+    abstract: true,
     views: {
       "main": {
-        controller: 'HomeCtrl',
-        templateUrl: 'home/home.tpl.html'
+        controller: 'ListsCtrl',
+        templateUrl: 'lists/lists.tpl.html'
       }
     },
-    data:{ pageTitle: 'Home' }
+    data:{ pageTitle: 'Lists' }
   });
 })
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, $log ) {
+.controller( 'ListsCtrl', function ListController( $scope, $log, $rootScope, ListsModel) {
+
+$scope.lists = null; 
+  
+
+var sync = function(){
+  ListsModel.getLists().then(function(lists){
+    $log.log(lists);
+  $scope.lists = lists;
+  });
+};
+
+
+$rootScope.$on('mbSyncLists', function(){
+  $log.log("mbSyncLists");
+  sync();
+});
+
+
+
+sync();
 
 
 });

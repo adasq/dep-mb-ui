@@ -159,19 +159,7 @@ module.exports = function ( grunt ) {
        * The `build_css` target concatenates compiled CSS and vendor CSS
        * together.
        */
-        custom: {
-        options: {
-          separator: ';',
-          process: function(src, filePath){
-            grunt.log.writeln(filePath);
-            return src;
-          }
-        },
-        src: [
-          'src/common/former/*.js'          
-        ],        
-        dest: 'test2/output.js'
-      },
+
       build_css: {
         src: [
           '<%= vendor_files.css %>',
@@ -458,12 +446,12 @@ module.exports = function ( grunt ) {
        * When our JavaScript source files change, we want to run lint them and
        * run our unit tests.
        */
-      jssrc: {
-        files: [ 
-          '<%= app_files.js %>'
-        ],
-        tasks: [ 'jshint:src', 'karma:unit:run', 'copy:build_appjs' ]
-      },
+      // jssrc: {
+      //   files: [ 
+      //     '<%= app_files.js %>'
+      //   ],
+      //   tasks: [ 'jshint:src', 'karma:unit:run', 'copy:build_appjs' ]
+      // },
 
       /**
        * When our CoffeeScript source files change, we want to run lint them and

@@ -36,25 +36,19 @@ angular.module( 'mb.auth', [
   });
 })
 
-.controller( 'LoginCtrl', function ( $scope, $log, AlertManager, FormManager, Auth ) {
+.controller( 'LoginCtrl', function ( $scope, $log,  $state, AlertManager, FormManager, Auth ) {
 
  
 var alertManager = new AlertManager($scope);  
-  //alertManager.setDangerAlert({msg: "siemanko"});
-
-
-  //alertManager.setSuccessAlert({msg: "siemanko2"});
   var errorHandler = function(response){
     alertManager.setDangerAlert(response);
   };
 
-  // RequestHandler.send('generateList', {name: "ziemniaki3"}).then(function(response){
-  //    $log.log(response);
-  // });
   
   var successHandler = function(response){
-    //$scope.base.setUser(response.user);
+    $scope.base.setUser(response.user);
     $state.go('home');
+
   };
 
   var getFieldByName = function(name){
