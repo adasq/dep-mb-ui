@@ -1,6 +1,7 @@
 angular.module( 'mb', [
   'templates-app',
   'templates-common',
+  'mb.trooper',
   'mb.home',
   'mb.about',
   'mb.auth',

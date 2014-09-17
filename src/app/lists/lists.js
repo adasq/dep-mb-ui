@@ -15,9 +15,12 @@
 angular.module( 'mb.lists', [
   'ui.router',
   'mb.lists.new',
+  'mb.lists.show',
   'mb.lists.all',
   'mb.lists.service',
-  'mb.lists.factory'  
+  'mb.lists.factory',
+  'mb.lists.viewer',
+  'mb.lists.editor'
 ])
 
 /**

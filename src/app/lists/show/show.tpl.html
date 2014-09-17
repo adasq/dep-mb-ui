@@ -1,0 +1,28 @@
+<div ng-controller="ListsShowCtrl">
+
+
+<div class="page-header">
+  <h2>{{list.data.name}} <small>list view</small></h2>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+	<button ui-sref="lists.edit({lid:list.data.name})" type="button" class="pull-right btn btn-default">
+	<span class="glyphicon glyphicon-cog"></span>
+	Edit this list
+	</button>
+	</div>
+</div>
+
+<div class="row top-buffer">
+</div>
+
+ 
+
+
+ <mb-list-viewer lname="{{list.data.name}}" troopers="list.data.troopers"></mb-list-viewer> 
+
+
+
+
+</div>

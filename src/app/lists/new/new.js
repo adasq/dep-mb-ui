@@ -1,7 +1,9 @@
 
 angular.module( 'mb.lists.new', [
   'ui.router',
-  'mb.lists'
+  'mb.lists',
+  'mb.lists.factory',
+  'mb.lists.editor'
 ])
 
 .config(function config( $stateProvider ) {
@@ -17,7 +19,7 @@ angular.module( 'mb.lists.new', [
   });
 })
 
-.controller( 'ListsNewCtrl', function ListNewController( $scope, $log, ListsModel ) {
+.controller( 'ListsNewCtrl', function ListNewController( $scope, $log, $rootScope, ListsModel ) {
 
 
 

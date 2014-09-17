@@ -38,8 +38,7 @@ angular.module( 'mb.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, $log ) {
-
+.controller( 'HomeCtrl', function HomeController( $scope, $log) {
 
 });
 
