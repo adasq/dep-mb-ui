@@ -17,6 +17,7 @@ angular.module( 'mb.lists.all', [
 })
 
 .controller( 'ListsAllCtrl', function ListsAllCtrl($scope, $log, $timeout) {
- 
+
+
 });
 

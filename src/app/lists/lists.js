@@ -17,6 +17,7 @@ angular.module( 'mb.lists', [
   'mb.lists.new',
   'mb.lists.show',
   'mb.lists.all',
+    'mb.lists.edit',
   'mb.lists.service',
   'mb.lists.factory',
   'mb.lists.viewer',
@@ -48,18 +49,16 @@ angular.module( 'mb.lists', [
 .controller( 'ListsCtrl', function ListController( $scope, $log, $rootScope, ListsModel) {
 
 $scope.lists = null; 
-  
 
 var sync = function(){
   ListsModel.getLists().then(function(lists){
-    $log.log(lists);
+
   $scope.lists = lists;
   });
 };
 
 
 $rootScope.$on('mbSyncLists', function(){
-  $log.log("mbSyncLists");
   sync();
 });
 

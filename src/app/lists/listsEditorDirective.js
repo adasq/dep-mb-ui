@@ -1,10 +1,46 @@
 angular.module( 'mb.lists.editor', [
   'mb.trooper'
 ])
+.directive('trooperInputHelper', function($log, $timeout){
+     var link = function(scope, element, attr, ctrl) {
+            //content
+            var KEY_CODE_ENTER = 13,
+                KEY_CODE_ESC = 27;
+            var oldValue = scope.$eval(attr.ngModel);
+
+            var rejectEditing = function(){
+                ctrl.$setViewValue(oldValue);
+                scope.$apply(attr.trooperInputHelper);
+            };
+            var acceptEditing = function(){
+                scope.$apply(attr.trooperInputHelper);
+            };
+            element.bind('keydown', function (event) {               
+                if (event.keyCode === KEY_CODE_ESC) {
+                    rejectEditing();
+                }
+                if (event.keyCode === KEY_CODE_ENTER) {
+                    acceptEditing();
+                }
+            });
+            element.bind('blur', function (event) {
+                rejectEditing();
+            });
+            $timeout(function () {
+                        element[0].focus();
+                    }, 0, false);
+
+        };
+        return {
+            require: 'ngModel',
+            link: link,
+            restrict:"A"           
+        };
+})
 .directive("mbListEditor", function ($log, $state, $location, $anchorScroll, Trooper){
      var link = function($scope, element, attr) {
 //==========================================================================
-$log.log('xd');
+
 $scope.current= null;
 $scope.selected = 0;
 var TROOPER_ID = 0;

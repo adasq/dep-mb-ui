@@ -79,7 +79,7 @@
 </td></tr>
 
 
-<tr id="trooper-{{trooper.id}}" ng-class="{'selected': trooper.selected, 'selectable': true, 'highlighted': trooper.highlighted}" ng-click="selectTrooper(trooper)"
+<tr id="trooper-{{trooper.id}}" ng-class="{'active': trooper.selected, 'selectable': true, 'highlighted': trooper.highlighted}" ng-click="selectTrooper(trooper)"
 ng-repeat-start="trooper in list.troopers">
 <td ng-dblclick="trooper.edited = true" class="col-md-3"> 
   <span ng-if="!trooper.edited">{{trooper.name}} {{trooper.id}}</span>
