@@ -3,13 +3,14 @@ angular.module( 'mb.lists.edit', [
   'ui.router',
   'mb.lists',
   'mb.lists.factory',
+  'mb.lists.service',
   'mb.lists.editor',
   'utils' 
 ])
  
 .config(function config( $stateProvider ) {
   $stateProvider.state( 'lists.edit', {
-   url: '/{lid:[a-zA-Z0-9]{4,10}}/edit',
+   url: '/{lid:[a-zA-Z0-9_]{4,15}}/edit',
     views: {
       "lists-content": {
         controller: 'ListsEditCtrl',
@@ -20,9 +21,9 @@ angular.module( 'mb.lists.edit', [
   });
 })
 
-.controller( 'ListsEditCtrl', function ($scope, $state, $log, $rootScope, ListsModel, Utils){
+.controller( 'ListsEditCtrl', function ($scope, $state, $log, $rootScope,  Lists, ListsModel, Utils){
 
- 
+ $scope.patternName = Lists.PATTERN_NAME;
  $scope.currentList=null;
  $log.log('list name: ',$state.params.lid);
 

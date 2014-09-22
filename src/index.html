@@ -50,10 +50,12 @@
         <li class=""><a ui-sref="login">login</a></li> 
       </ul>
       <ul ng-show="base.auth && base.auth.loggedIn" class="nav navbar-nav">
-        <li class=""><a ui-sref="lists.all">listy</a></li>
-        <li class=""><a ui-sref="lists.show({lid:'asddsf43'})">lista</a></li>
-         <li class=""><a ui-sref="lists.edit({lid:'asddsf43'})">lista edit</a></li>
-        <li class=""><a ui-sref="example">example</a></li> 
+        <li class="">
+          <a ui-sref="lists.all">
+          <span class="glyphicon glyphicon-list-alt"></span> Lists
+        </a>
+        </li>
+        
       </ul>
 
 

@@ -1,12 +1,13 @@
 
 angular.module( 'mb.lists.show', [
   'ui.router',
-  'mb.lists.factory'
+  'mb.lists.factory',
+  'utils'
 ])
 
 .config(function config( $stateProvider ) {
   $stateProvider.state( 'lists.show', {
-    url: '/{lid:[a-zA-Z0-9]{4,10}}', 
+    url: '/{lid:[a-zA-Z0-9_]{4,15}}', 
     views: {
       "lists-content": {
         controller: 'ListsShowCtrl',
@@ -16,12 +17,12 @@ angular.module( 'mb.lists.show', [
     data:{ pageTitle: 'Let\'s play!' }
   });
 })
-.controller( 'ListsShowCtrl', function ($scope, $log, $timeout, $state, ListsModel){
+.controller( 'ListsShowCtrl', function ($scope, $log, $timeout, $state, Utils, ListsModel){
 $scope.list=null;
 ListsModel.getListByName($state.params.lid).then(function(list){
   $scope.list = list;
 }, function(response){
-  $log.log('ehh');
+  Utils.redirect("home");
 });
 
 

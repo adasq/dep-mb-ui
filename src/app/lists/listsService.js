@@ -3,7 +3,7 @@ angular.module( 'mb.lists.service', [
 ])
 .service("Lists", function(RequestHandler){
 
-	var validName = new RegExp("^[a-zA-Z0-9]{3,10}$");
+	this.PATTERN_NAME= new RegExp("^[a-zA-Z0-9_]{4,15}$");
 
 	this.createList = function(data){
 		return RequestHandler.send("createList", data);	
@@ -19,7 +19,7 @@ angular.module( 'mb.lists.service', [
 	};
 
 	this.validName = function(name){
-		return validName.test(name);
+		return this.PATTERN_NAME.test(name);
 	};
 
 });
