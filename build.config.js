@@ -33,11 +33,14 @@ module.exports = {
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/underscore/underscore-min.js'
+      'vendor/underscore/underscore-min.js',
+      'vendor/ngprogress/build/ngProgress.min.js'
     ],
     css: [
+      
     ],
     assets: [
+      'vendor/ngprogress/ngProgress.css'
     ]
   },
 };

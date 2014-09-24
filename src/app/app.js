@@ -15,9 +15,8 @@ angular.module( 'mb', [
 })
 .run( function run () {
 })
-.controller( 'AppCtrl', function AppCtrl ( $location,  $scope, $log, $state, $rootScope, Auth) {
-  
-
+.controller( 'AppCtrl', function AppCtrl ( $timeout, $location,  $scope, $log, $state, $rootScope, Auth) {
+ 
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     
 

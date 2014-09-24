@@ -7,7 +7,8 @@
     "bootstrap": "~3.2.0",
     "angular-bootstrap": "~0.11.0",
     "angular-ui-router": "~0.2.11",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "ngprogress": "~1.0.6"
   },
   "dependencies": {}
 }
