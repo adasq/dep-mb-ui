@@ -34,7 +34,8 @@ module.exports = {
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/underscore/underscore-min.js',
-      'vendor/ngprogress/build/ngProgress.min.js'
+      'vendor/ngprogress/build/ngProgress.min.js',
+      'vendor/d3/d3.js'
     ],
     css: [
       

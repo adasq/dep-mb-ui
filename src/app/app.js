@@ -7,7 +7,8 @@ angular.module( 'mb', [
   'mb.auth',
   'mb.lists',
   'mb.register',
-  'ui.router'
+  'ui.router',
+  'mb.family'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {

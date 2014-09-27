@@ -7,15 +7,14 @@ angular
 	this.generateList = function(data){
 		return RequestHandler.send("generateList", data);	
 	};
-
 	this.play = function(data){
 		return RequestHandler.send("play", data);	
 	};
 	this.chooseSkill = function(data){
 		return RequestHandler.send("chooseSkill", data);	
 	};
-	this.generateFamily = function(){
-		return RequestHandler.send("generateFamily", {});	
+	this.generateTrooperFamily = function(data){
+		return RequestHandler.send("generateTrooperFamily", data);	
 	};
 });
 
