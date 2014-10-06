@@ -10,7 +10,6 @@ angular.module( 'mb', [
   'ui.router',
   'mb.family'
 ])
-
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
   $urlRouterProvider.otherwise( '/home' );
 })

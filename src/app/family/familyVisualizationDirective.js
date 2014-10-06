@@ -4,22 +4,36 @@ angular.module( 'mb.family.visualization', [
         var link = function(scope, element, attr) {
             //content    
 
+ 
 
-var diameter = 1960;
+
+  var
+    width = 2000,
+    height = 500;
+  
+  
+  var zoom = d3.behavior.zoom()
+    .scaleExtent([-1, 10])
+    .on("zoom", zoomed);
+  
+  var drag = d3.behavior.drag()
+    .origin(function(d) { return d; })
+    .on("dragstart", dragstarted)
+    .on("drag", dragged)
+    .on("dragend", dragended);
+
 
 var tree = d3.layout.tree()
-    .size([360, diameter / 2 - 120])
+    .size([360, width / 2 - 120])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 
 var diagonal = d3.svg.diagonal.radial()
     .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
 
-var svg = d3.select("#trooper-family-view").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter - 150)
-  .append("g")
-    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
-
+var svg = d3.select("#trooper-family-view").append("svg").call(zoom)
+    .attr("width", "100%")
+    .attr("height", height)
+  .append("g").call(drag);
 
 var init = function(root){
       var nodes = tree.nodes(root),
@@ -53,9 +67,23 @@ scope.$watch('family', function(nv){
     }
 });
 
-d3.select(self.frameElement).style("height", diameter - 100 + "px");
+d3.select(self.frameElement).style("height", width - 100 + "px");
 
+  function zoomed() {
+  svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+  function dragstarted(d) {
+  d3.event.sourceEvent.stopPropagation();
+  d3.select(this).classed("dragging", true);
+}
 
+function dragged(d) {
+  d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+}
+
+function dragended(d) {
+  d3.select(this).classed("dragging", false);
+}
 
 
         };
@@ -65,7 +93,7 @@ d3.select(self.frameElement).style("height", diameter - 100 + "px");
                 family: "="
             },
             restrict: "E",
-            template: '<div id="trooper-family-view"></div>'
+            template: '<div style="overflow: auto; width: 100%" id="trooper-family-view"></div>'
         };
 
 });

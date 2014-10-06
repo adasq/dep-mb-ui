@@ -446,12 +446,14 @@ module.exports = function ( grunt ) {
        * When our JavaScript source files change, we want to run lint them and
        * run our unit tests.
        */
-      // jssrc: {
-      //   files: [ 
-      //     '<%= app_files.js %>'
-      //   ],
-      //   tasks: [ 'jshint:src', 'karma:unit:run', 'copy:build_appjs' ]
-      // },
+      jssrc: {
+        files: [ 
+          '<%= app_files.js %>'
+        ],
+        tasks: [ 'jshint:src', 
+       // 'karma:unit:run', 
+        'copy:build_appjs' ]
+      },
 
       /**
        * When our CoffeeScript source files change, we want to run lint them and

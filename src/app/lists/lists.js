@@ -23,7 +23,6 @@ angular.module( 'mb.lists', [
   'mb.lists.viewer',
   'mb.lists.editor'
 ])
-
 /**
  * Each section or module of the site can also have its own routes. AngularJS
  * will handle ensuring they are all available at run-time, but splitting it
