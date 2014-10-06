@@ -25,8 +25,8 @@ angular.module( 'mb.lists.edit', [
 
  $scope.patternName = Lists.PATTERN_NAME;
  $scope.currentList=null;
- $log.log('list name: ',$state.params.lid);
 
+      
  
 ListsModel.getListByName($state.params.lid).then(function(list){
   $scope.currentList= list;

@@ -22,6 +22,14 @@
 </div>
  
   <div class="btn-group pull-right">
+     <button type="button" class="btn btn-default">
+   
+    <span class="glyphicon glyphicon-file"></span>
+<!-- <span class="btn-file">
+    Import Troopers <input type="file" id="files" name="files[]" multiple />
+</span> -->
+<aq-file-selector id="aqfs-troopers" btn-text='Import Troopers'></aq-file-selector>
+  </button>
   <button type="button" ng-click="handleTrooperSelection(!!!selected)" class="btn btn-default">Select</button>
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>
@@ -46,11 +54,18 @@
   <button type="button" ng-click="addTrooper()" class="btn btn-default">
 <span class="glyphicon glyphicon-plus"></span>
   </button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Opcje
+
+
+ 
+
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">More
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
   </button>
    <ul class="dropdown-menu" role="menu">
+
+
+    <li><a href="" ng-click="">xd</a></li>
       <li><a href="" ng-click="">xd</a></li>
       <li class="divider"></li>
       <li><a href="" ng-click="">xd</a></li>

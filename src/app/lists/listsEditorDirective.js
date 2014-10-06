@@ -1,5 +1,7 @@
 angular.module( 'mb.lists.editor', [
-  'mb.trooper'
+  'mb.trooper',
+  'fileSelector',
+  'utils'
 ])
 .directive('trooperInputHelper', function($log, $timeout){
      var link = function(scope, element, attr, ctrl) {
@@ -37,9 +39,22 @@ angular.module( 'mb.lists.editor', [
             restrict:"A"           
         };
 })
-.directive("mbListEditor", function ($log, $state, $location, $anchorScroll, Trooper){
+.directive("mbListEditor", function ($log, $state, $location, $anchorScroll, Trooper, Utils){
      var link = function($scope, element, attr) {
 //==========================================================================
+
+$scope.$on('aqFileSelector', function(mess, response){
+            if('file-aqfs-troopers' === response.id){
+                var content = Utils.decodeBase64(response.obj);  
+                var troopers= content.split('\r\n');
+                _.each(troopers, function(trooper){
+                    addTrooper(trooper, '');
+                });
+                $scope.$apply();
+            }            
+        });
+
+
 
 $scope.current= null;
 $scope.selected = 0;
@@ -78,7 +93,14 @@ $scope.calncelEditindTrooper= function(trooper){
     trooper.edited=false;
     trooper.edited2=false;
 };
-//$('#xd').scrollTop($('#trooper-6').offset().top);
+var addTrooper = function(name, pass){
+    $scope.list.troopers.unshift({
+    name: name,
+    pass: pass || "",
+    id: ++TROOPER_ID,
+    highlighted: true
+});     
+};
 $scope.addTrooper = function(){
     if(!$scope.newTrooper){return;}
 
@@ -87,12 +109,7 @@ _.each($scope.list.troopers, function(trooper){
 });
 
     var splited = $scope.newTrooper.split(';');
-    $scope.list.troopers.unshift({
-    name: splited[0],
-    pass: splited[1] || "",
-    id: ++TROOPER_ID,
-    highlighted: true
-}); 
+    addTrooper(splited[0], splited[1]);
     $scope.newTrooper = "";
 };
 
