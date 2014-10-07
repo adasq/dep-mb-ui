@@ -1,5 +1,6 @@
 <!-- style="overflow-y: scroll; max-height:400px;" class="panel panel-default" -->
 <div class="panel panel-default">
+	<div style="overflow-y: scroll; overflow-x: hidden; max-height: 400px;">
 <table class="panel-body table table-bordered">
 <tr class="active"><td class="col-md-2">Name</td><td class="col-md-3">Battle</td><td class="col-md-3">Mission</td><td class="col-md-3">Raid</td>
 	<td class="col-md-1">
@@ -16,9 +17,9 @@
 <tr ng-show="!troopers"><td colspan="5">
 <p class="text-center"><i>Waiting...</i></p>
 </td></tr>
-<tr id="trooper-{{trooper.id}}" 
+<tr id="{{trooper._id}}" 
 ng-class="{'active': trooper.ui.selected}"
-ng-repeat-start="trooper in troopers | orderBy:'upgradeSkills'">
+ng-repeat-start="trooper in troopers ">
 <td class="col-md-2"> 
   	<span><a target="_blank" href="http://{{trooper.name}}.minitroopers.com/hq">{{trooper.name}}</span> 
 </td>
@@ -86,4 +87,4 @@ ng-repeat-start="trooper in troopers | orderBy:'upgradeSkills'">
 <tr class="active"><td ng-if="troopers.length !== 0" colspan="5">Total troopers: {{troopers.length}}</td></tr>
 
 </table>
-  </div> 
+  </div> </div> 

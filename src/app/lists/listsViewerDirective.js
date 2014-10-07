@@ -1,7 +1,7 @@
 angular.module( 'mb.lists.viewer', [
   'mb.trooper'
 ])
-.directive("mbListViewer", function ($log, $q, $timeout, Trooper){
+.directive("mbListViewer", function ($log, $q, $location, $anchorScroll, $timeout, Trooper){
 
 
 	var link = function(scope, element, attr) {
@@ -38,18 +38,54 @@ angular.module( 'mb.lists.viewer', [
                            }, function(){
                                 deferred.reject({skill: skill, trooper: trooper}); 
                                 trooper.ui.state = scope.state.PLAYED;
-                           });                      
+                           });    
+                           if(scope.nextTrooperWithSkillSelectionAvailable){
+                            var tid = scope.nextTrooperWithSkillSelectionAvailable._id;
+                            navigateToTrooper(tid);
+                            selectTrooperById(tid);         
+                           }
+                       
                          return deferred.promise;                        
                 };
 
+            };  
+            var findNextTrooperWithSkillAvailable = function(currentIndex){
+                return _.find(scope.troopers, function(trooper, i){
+                    return trooper.upgradeSkills && (currentIndex<i);
+                });
             };
-          
+
+            var findNextTrooper = function(i){
+                            var nextTrooper = null;
+                            if(i+1 == scope.troopers.length){
+                                nextTrooper = scope.troopers[0];
+                            }else{
+                                nextTrooper = scope.troopers[i+1];
+                            }
+                            return nextTrooper;
+            };
+            var navigateToTrooper = function(tid){
+                 $location.hash(tid);
+                $anchorScroll();
+            };
             var selectTrooperById = function(tid){
-                _.each(scope.troopers, function(trooper){
-                    trooper.ui.selected = (trooper.ui.selected?false:(trooper._id === tid));
+                
+                _.each(scope.troopers, function(trooper, i){
+                    if(trooper.ui.selected){
+                        trooper.ui.selected= false;
+                    }else{
+                       trooper.ui.selected = (trooper._id === tid);
+                       if(trooper.ui.selected){
+                            $log.log('current: ', trooper);
+                            scope.nextTrooper = findNextTrooper(i);
+                            scope.nextTrooperWithSkillSelectionAvailable= 
+                            findNextTrooperWithSkillAvailable(i);
+                       }
+                    }
                 });
             };
             scope.selectTrooper= function(trooper){
+               
                 selectTrooperById(trooper._id);
             };
             scope.$watch('troopers', function(nv){
