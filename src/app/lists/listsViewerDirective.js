@@ -26,7 +26,6 @@ angular.module( 'mb.lists.viewer', [
                     scope.tableState = tableStates.DEFAULT;
                 });
             };
-
             scope.onSkillSelection = function(trooper){
                 return function(skill){
                     var skillId = skill.skillId;
@@ -99,7 +98,24 @@ angular.module( 'mb.lists.viewer', [
                     });
                 
             });
-            scope.play = function(trooper){  
+            scope.play = function(trooper){
+                if(trooper.report){
+                    var report= JSON.parse(trooper.report); 
+                    var deferred2= $q.defer();
+                    if(report.upgrade.isAvailable){
+                        trooper.upgradeSkills = report.upgrade.skills;
+                        trooper.ui.state = scope.state.UPGRADE;   
+                    }
+                trooper.skills = report.skills;
+                trooper.needToUpgrade = report.needToUpgrade;
+                trooper.money = report.money;
+                trooper.fights = report.fights;
+                    deferred2.resolve();
+                    return deferred2.promise;
+                }
+
+
+
                 var deferred= $q.defer();
                 trooper.ui.state = scope.state.IN_PROGRESS;    
                 Trooper.play({tid: trooper._id, lname: attr.lname}).then(function(response){                   
