@@ -41,6 +41,14 @@ angular.module( 'mb.lists.factory', [
 		return normalizedData;
 	
 	};
+	TrooperListModel.prototype.getLastReport = function(name){
+		var deffered = $q.defer();
+		var promise= Lists.getListReportByListId({_id: this.data._id});
+		promise.then(function(resposne){
+			deffered.resolve(resposne);
+		}, deffered.reject);
+		return deffered.promise;
+	};
 	TrooperListModel.prototype.save = function(){
 		var promise=null, deffered = $q.defer(); 
 		if(this.data._id){

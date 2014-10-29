@@ -11,9 +11,9 @@
 </div>
 
 <div ng-show="currentState === state.DEFAULT" class="list-group">
-  <a ng-repeat="skill in skills" ng-click="selectSkill(skill)" href="" class="list-group-item">
-  	 <span class="skill-view" style="{{skill.style}}"></span>
+  <a ng-repeat="skill in skills2" ng-click="selectSkill(skill)" href="" class="list-group-item">
+  	 <span class="skill-view" style="background: url('/assets/skills.png'){{skill.style}}"></span>
     <h5 class="list-group-item-heading"><strong>{{skill.name}}</strong></h5>
-    <p class="list-group-item-text"> <small><em>{{skill.description}}</em></small></p>
+    <p class="list-group-item-text"> <small><em ng-bind-html="skill.desc"></em></small></p>
   </a>
 </div>

@@ -75,7 +75,7 @@ ng-repeat-start="trooper in troopers ">
 			<div class="col-md-6">			
 			<div class="panel panel-default">
 				  <div class="panel-body">
-				   <span popover="{{skill.desc}}" popover-title="{{skill.title}}" popover-trigger="mouseenter" class="skill-view" style="{{skill.style}}" ng-repeat="skill in trooper.skills"></span>
+				   <span popover="{{skill.desc}}" popover-title="{{skill.name}}" popover-trigger="mouseenter" class="skill-view" style="background: url('/assets/skills.png'){{skill.style}}" ng-repeat="skill in trooper.skills"></span>
 				  </div>
 				</div>
 			</div>			

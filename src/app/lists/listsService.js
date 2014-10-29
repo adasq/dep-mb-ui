@@ -14,6 +14,10 @@ angular.module( 'mb.lists.service', [
 	this.getListByName = function(data){
 		return RequestHandler.send("getList", data);	
 	};
+	this.getListReportByListId = function(data){
+		return RequestHandler.send("getListReport", data);	
+	};
+
 	this.getLists = function(){
 		return RequestHandler.send("getLists", {});	
 	};

@@ -1,7 +1,7 @@
 angular.module( 'mb.lists.viewer', [
   'mb.trooper'
 ])
-.directive("mbListViewer", function ($log, $q, $location, $anchorScroll, $timeout, Trooper){
+.directive("mbListViewer", function ($log, $q, $location, $anchorScroll, $timeout, Trooper, Skills){
 
 
 	var link = function(scope, element, attr) {
@@ -100,16 +100,20 @@ angular.module( 'mb.lists.viewer', [
             });
             scope.play = function(trooper){
                 if(trooper.report){
-                    var report= JSON.parse(trooper.report); 
+                    var report= trooper.report; 
                     var deferred2= $q.defer();
                     if(report.upgrade.isAvailable){
                         trooper.upgradeSkills = report.upgrade.skills;
                         trooper.ui.state = scope.state.UPGRADE;   
                     }
-                trooper.skills = report.skills;
-                trooper.needToUpgrade = report.needToUpgrade;
-                trooper.money = report.money;
-                trooper.fights = report.fights;
+                    trooper.ui.state = scope.state.PLAYED;
+                    trooper.skills = _.map(report.skills, function(skill){
+                        var obj = Skills.getSkillById(skill);                      
+                        return obj;
+                    });
+                    trooper.needToUpgrade = report.needToUpgrade;
+                    trooper.money = report.money;
+                    trooper.fights = report.fights;
                     deferred2.resolve();
                     return deferred2.promise;
                 }

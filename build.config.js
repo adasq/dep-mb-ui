@@ -2,8 +2,8 @@
 module.exports = {
 
 
-  build_dir: 'build',
-  compile_dir: 'bin',
+  build_dir:   '../rh-mini/src/ui/build',
+  compile_dir: '../rh-mini/src/ui/bin',
 
   app_files: {
     js: [ 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**/*.js' ],
