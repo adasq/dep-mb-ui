@@ -8,27 +8,29 @@ angular
             ERROR_MSG_TIMEOUT = 2000,
             onSkillSelection = scope.onSkillSelection();
             scope.selectSkill = function(skill){
-        scope.currentState = state.IN_PROGRESS;
-        var promise = onSkillSelection(skill);
-        promise.then(function(result){
-            scope.result = result;
-            scope.currentState = state.SUCCESS;
-        }, function(result){
-            scope.result = result;
-            scope.currentState = state.ERROR;
-            $timeout(function(){
-                scope.currentState = state.DEFAULT;
-            }, ERROR_MSG_TIMEOUT);
-        });       
+console.log(skill);
+                return;
+        // scope.currentState = state.IN_PROGRESS;
+        // var promise = onSkillSelection(skill);
+        // promise.then(function(result){
+        //     scope.result = result;
+        //     scope.currentState = state.SUCCESS;
+        // }, function(result){
+        //     scope.result = result;
+        //     scope.currentState = state.ERROR;
+        //     $timeout(function(){
+        //         scope.currentState = state.DEFAULT;
+        //     }, ERROR_MSG_TIMEOUT);
+        // });       
       };
 
       scope.$watch('skills',function(){
-      scope.skills2 = _.map(scope.skills, function(skill){        
+      scope.skills2 = _.map(scope.skills, function(skill){ 
         var skillObj = Skills.getSkillById(skill.skillId);
-        
+        skillObj.mbSkillId=skill.mbSkillId;
         return skillObj;
-       });
-      $log.log('!!',scope.skills); scope.currentState = state.DEFAULT;
+       }); 
+      scope.currentState = state.DEFAULT;
       });
 
         };

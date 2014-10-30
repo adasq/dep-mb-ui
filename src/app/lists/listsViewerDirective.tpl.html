@@ -11,15 +11,15 @@
 
 	</td></tr>
 
-<tr ng-show="troopers.length === 0"><td colspan="5">
+<tr ng-show="list.trooperReports.length === 0"><td colspan="5">
 <p class="text-center"><i>It looks like, your list is empty!</i></p>
 </td></tr>
-<tr ng-show="!troopers"><td colspan="5">
+<tr ng-show="!list.trooperReports"><td colspan="5">
 <p class="text-center"><i>Waiting...</i></p>
 </td></tr>
 <tr id="{{trooper._id}}" 
 ng-class="{'active': trooper.ui.selected}"
-ng-repeat-start="trooper in troopers ">
+ng-repeat-start="trooper in list.trooperReports ">
 <td class="col-md-2"> 
   	<span><a target="_blank" href="http://{{trooper.name}}.minitroopers.com/hq">{{trooper.name}}</span> 
 </td>
@@ -84,7 +84,7 @@ ng-repeat-start="trooper in troopers ">
 </td>
 </tr>
 
-<tr class="active"><td ng-if="troopers.length !== 0" colspan="5">Total troopers: {{troopers.length}}</td></tr>
+<tr class="active"><td ng-if="list.trooperReports.length !== 0" colspan="5">Total troopers: {{list.trooperReports.length}}</td></tr>
 
 </table>
   </div> </div> 

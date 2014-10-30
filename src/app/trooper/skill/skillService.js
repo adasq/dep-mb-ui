@@ -77,7 +77,13 @@ angular
 				return skill.skillId === id;
 			});	
 			if(skill){
-				skill.desc = $sce.trustAsHtml(getDescBySkillAndSpecialization(skill, categoryName));
+				console.log('!!!!',skill, getDescBySkillAndSpecialization(skill, categoryName));
+				try{
+					skill.desc = $sce.trustAsHtml(getDescBySkillAndSpecialization(skill, categoryName));
+				}catch(e){
+					console.log(e);
+				}
+				
 				skill.style = that.getStyleBySkillId(id);
 			}	
 		});

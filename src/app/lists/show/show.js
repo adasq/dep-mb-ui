@@ -25,14 +25,9 @@ ListsModel.getListByName($state.params.lid).then(function(list){
 
   list.getLastReport().then(function(lastReport){
 
-
-     _.each(list.data.troopers, function(t, i){
-      t.report = lastReport.trooperReports[i];      
-    });
-     $scope.list = list;
-     console.log('===========================');
-     console.log($scope.list);
-     console.log(Skills.getSkillById(2));
+     $scope.list = lastReport; 
+     console.log(lastReport);
+    
   });
  
 

@@ -19,7 +19,7 @@ angular.module( 'mb.lists.viewer', [
             };
             scope.playAll = function(){
                 scope.tableState = tableStates.IN_PROGRESS;
-                var promises = _.map(scope.troopers, function(trooper){
+                var promises = _.map(scope.list.trooperReports, function(trooper){
                     return scope.play(trooper);
                 });
                 $q.all(promises).then(function(){
@@ -46,20 +46,19 @@ angular.module( 'mb.lists.viewer', [
                        
                          return deferred.promise;                        
                 };
-
             };  
             var findNextTrooperWithSkillAvailable = function(currentIndex){
-                return _.find(scope.troopers, function(trooper, i){
+                return _.find(scope.list.trooperReports, function(trooper, i){
                     return trooper.upgradeSkills && (currentIndex<i);
                 });
             };
 
             var findNextTrooper = function(i){
                             var nextTrooper = null;
-                            if(i+1 == scope.troopers.length){
-                                nextTrooper = scope.troopers[0];
+                            if(i+1 == scope.list.trooperReports.length){
+                                nextTrooper = scope.list.trooperReports[0];
                             }else{
-                                nextTrooper = scope.troopers[i+1];
+                                nextTrooper = scope.list.trooperReports[i+1];
                             }
                             return nextTrooper;
             };
@@ -69,7 +68,7 @@ angular.module( 'mb.lists.viewer', [
             };
             var selectTrooperById = function(tid){
                 
-                _.each(scope.troopers, function(trooper, i){
+                _.each(scope.list.trooperReports, function(trooper, i){
                     if(trooper.ui.selected){
                         trooper.ui.selected= false;
                     }else{
@@ -87,10 +86,10 @@ angular.module( 'mb.lists.viewer', [
                
                 selectTrooperById(trooper._id);
             };
-            scope.$watch('troopers', function(nv){
+            scope.$watch('list.trooperReports', function(nv){
           if(!nv){ return;
           }
-            _.each(scope.troopers, function(trooper){
+            _.each(scope.list.trooperReports, function(trooper){
                         trooper.ui = {
                             state: scope.state.DEFAULT,
                             infoViewVisible: false
@@ -99,53 +98,52 @@ angular.module( 'mb.lists.viewer', [
                 
             });
             scope.play = function(trooper){
-                if(trooper.report){
-                    var report= trooper.report; 
+                if(1 === 1){ 
                     var deferred2= $q.defer();
-                    if(report.upgrade.isAvailable){
-                        trooper.upgradeSkills = report.upgrade.skills;
+                    if(trooper.upgrade.isAvailable){
+                        trooper.upgradeSkills = trooper.upgrade.skills;
                         trooper.ui.state = scope.state.UPGRADE;   
                     }
                     trooper.ui.state = scope.state.PLAYED;
-                    trooper.skills = _.map(report.skills, function(skill){
-                        var obj = Skills.getSkillById(skill);                      
+                    trooper.skills = _.map(trooper.skills, function(skill){
+                        console.log(skill);    
+                        var obj = Skills.getSkillById(skill); 
                         return obj;
                     });
-                    trooper.needToUpgrade = report.needToUpgrade;
-                    trooper.money = report.money;
-                    trooper.fights = report.fights;
                     deferred2.resolve();
                     return deferred2.promise;
                 }
 
 
 
-                var deferred= $q.defer();
-                trooper.ui.state = scope.state.IN_PROGRESS;    
-                Trooper.play({tid: trooper._id, lname: attr.lname}).then(function(response){                   
-                    trooper.ui.state = scope.state.PLAYED;             
-                    var troopeFights= response.fight;
-                    var trooperInfo = response.skills;
-                    trooper.fights = {
-                        battle: troopeFights[0],
-                        mission: troopeFights[1],
-                        raid: troopeFights[2]
-                    };
-                    if(response.upgrade){
-                        trooper.upgradeSkills = response.upgrade;
-                        trooper.ui.state = scope.state.UPGRADE;   
-                    }
-                    trooper.skills = trooperInfo.skills;
-                    trooper.needToUpgrade = trooperInfo.needToUpgrade;
-                    trooper.money = trooperInfo.money;
-                    deferred.resolve();
-                });
-                return deferred.promise;
+                // var deferred= $q.defer();
+                // trooper.ui.state = scope.state.IN_PROGRESS;    
+                // Trooper.play({tid: trooper._id, lname: attr.lname}).then(function(response){                   
+                //     trooper.ui.state = scope.state.PLAYED;             
+                //     var troopeFights= response.fight;
+                //     var trooperInfo = response.skills;
+                //     trooper.fights = {
+                //         battle: troopeFights[0],
+                //         mission: troopeFights[1],
+                //         raid: troopeFights[2]
+                //     };
+                //     if(response.upgrade){
+                //         trooper.upgradeSkills = response.upgrade;
+                //         trooper.ui.state = scope.state.UPGRADE;   
+                //     }
+                //     trooper.skills = trooperInfo.skills;
+                //     trooper.needToUpgrade = trooperInfo.needToUpgrade;
+                //     trooper.money = trooperInfo.money;
+                //     deferred.resolve();
+                // });
+                // return deferred.promise;
             };
         };
         return {
             link: link,
-            scope: {troopers: "="},
+            scope: {
+                list: "="
+            },
             restrict: "E",
             templateUrl: "lists/listsViewerDirective.tpl.html"
         };
