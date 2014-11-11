@@ -13,6 +13,9 @@ angular
 	this.chooseSkill = function(data){
 		return RequestHandler.send("chooseSkill", data);	
 	};
+	this.chooseReportSkill = function(data){
+		return RequestHandler.send("chooseReportSkill", data);	
+	};
 	this.generateTrooperFamily = function(data){
 		return RequestHandler.send("generateTrooperFamily", data);	
 	};

@@ -1,21 +1,13 @@
-<!-- style="overflow-y: scroll; max-height:400px;" class="panel panel-default" -->
+{{list.name}} // {{list.date | date:'dd-MM-yyyy'}}
+
 
 <table class="table table-bordered">
 <tr class="active"><td class="col-md-2">Name</td><td class="col-md-3">Battle</td><td class="col-md-3">Mission</td><td class="col-md-3">Raid</td>
 	<td class="col-md-1">
-	<button ng-disabled="tableState === tableStates.IN_PROGRESS" type="button" ng-click="playAll()" class="btn btn-xs btn-block btn-success">
-	<span ng-show='tableState === tableStates.DEFAULT'>Play All!</span>
-	<span ng-show='tableState === tableStates.IN_PROGRESS'>Wait...</span>
-</button>
-
 	</td></tr>
 
-<tr ng-show="list.trooperReports.length === 0"><td colspan="5">
-<p class="text-center"><i>It looks like, your list is empty!</i></p>
-</td></tr>
-<tr ng-show="!list.trooperReports"><td colspan="5">
-<p class="text-center"><i>Waiting...</i></p>
-</td></tr>
+
+
 <tr id="{{trooper._id}}" 
 ng-class="{'active': trooper.ui.selected}"
 ng-repeat-start="trooper in list.trooperReports ">
@@ -32,30 +24,30 @@ ng-repeat-start="trooper in list.trooperReports ">
     <span>{{trooper.fights.raid}}</span>
 </td>
 <td class="col-md-4"> 
-<button ng-show="trooper.ui.state !== state.UPGRADE" type="button" 
-	ng-disabled="trooper.ui.state === state.IN_PROGRESS" class="btn btn-xs btn-block btn-default col-md-3" ng-click="play(trooper)">
-	<span ng-show="trooper.ui.state === state.IN_PROGRESS">wait ...</span>
-	<span ng-show="trooper.ui.state !== state.IN_PROGRESS">play</span>
-</button>
-<button type="button" ng-show="trooper.ui.state === state.UPGRADE" disabled
-	class="btn btn-xs btn-block btn-success">
-	<span>upgrade!</span>	
-</button>
-
-	<!-- <span ng-show="trooper.ui.state === state.PLAYED">+{{trooper.money}}
-	</span> -->
+<button disabled ng-show="trooper.ui.state !== state.DEFAULT" type="button" 
+ng-class="{
+'btn-danger': trooper.ui.state === state.UPGRADE_ERR,
+'btn-success': trooper.ui.state === state.UPGRADED
+}"
+class="btn btn-xs btn-block btn-default col-md-3">
+	<span ng-show="trooper.ui.state === state.AUTH_ERR">AUTH_ERR</span>
+	<span ng-show="trooper.ui.state === state.UPGRADE">UPGRADE!</span>
+	<span ng-show="trooper.ui.state === state.UPGRADED">UPGRADED</span>
+	<span ng-show="trooper.ui.state === state.UPGRADE_ERR">UPGRADE_ERR</span>
+	
+</button> 
 
 </td>
 </tr>
-<tr ng-show="trooper.ui.selected && (trooper.ui.state === state.PLAYED || trooper.ui.state === state.UPGRADE)" ng-repeat-end>
+<tr ng-show="trooper.ui.selected" ng-repeat-end>
+<!-- ================================================================================= -->
 <td class="col-md-12" colspan="5"> 
-
 		<div class="row">
 			<div class="col-md-12">		
 		<mb-skill-selection ng-if="trooper.upgradeSkills" on-skill-selection="onSkillSelection(trooper)" skills="trooper.upgradeSkills"></mb-skill-selection>	  
 			</div>
 		</div>
-		<div ng-show="trooper.needToUpgrade > 0" class="row">
+		<div ng-show="trooper.needToUpgrade >= 0" class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				  <div class="panel-body">
@@ -75,12 +67,13 @@ ng-repeat-start="trooper in list.trooperReports ">
 			<div class="panel panel-default">
 				  <div class="panel-body">
 				   <span popover="{{skill.desc}}" popover-title="{{skill.name}}" popover-trigger="mouseenter" class="skill-view" style="background: url('/assets/skills.png'){{skill.style}}" ng-repeat="skill in trooper.skills"></span>
+				   <div class="text-center text-muted"><span ng-show="trooper.skills.length === 0">skills view is disabled</span></div>
 				  </div>
 				</div>
 			</div>			
-		</div>
- 
+		</div> 
 </td>
+<!-- ================================================================================= -->
 </tr>
 
 <tr class="active"><td ng-if="list.trooperReports.length !== 0" colspan="5">Total troopers: {{list.trooperReports.length}}</td></tr>

@@ -28,9 +28,14 @@ angular.module( 'mb.lists.viewer', [
             };
             scope.onSkillSelection = function(trooper){
                 return function(skill){
+                    var request = {
+                        reportId: ""+scope.list._id,
+                        trooperId: ""+trooper._id,
+                        skillId: skill.skillId
+                    }; 
                     var skillId = skill.skillId;
                             var deferred = $q.defer(), 
-                           promise = Trooper.chooseSkill({skillId: skillId, tid: trooper._id, lname: attr.lname});
+                           promise = Trooper.chooseReportSkill(request);
                            promise.then(function(){ 
                                 deferred.resolve({skill: skill, trooper: trooper}); 
                                 trooper.ui.state = scope.state.PLAYED;
@@ -98,7 +103,7 @@ angular.module( 'mb.lists.viewer', [
                 
             });
             scope.play = function(trooper){
-                if(1 === 1){ 
+                if(1 === 1){
                     var deferred2= $q.defer();
                     if(trooper.upgrade.isAvailable){
                         trooper.upgradeSkills = trooper.upgrade.skills;

@@ -21,15 +21,14 @@ angular.module( 'mb.lists.show', [
 .controller( 'ListsShowCtrl', function ($scope, $log, $timeout, $state, Utils, ListsModel, Lists, Skills){
 $scope.list=null;
 ListsModel.getListByName($state.params.lid).then(function(list){
-  
+
 
   list.getLastReport().then(function(lastReport){
-
      $scope.list = lastReport; 
-     console.log(lastReport);
-    
+     $scope.list.name = list.data.name;      
+  }, function(msg){
+    $log.log('err: ', msg);
   });
- 
 
 }, function(response){
   Utils.redirect("home");

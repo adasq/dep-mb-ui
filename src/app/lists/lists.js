@@ -17,10 +17,11 @@ angular.module( 'mb.lists', [
   'mb.lists.new',
   'mb.lists.show',
   'mb.lists.all',
-    'mb.lists.edit',
+  'mb.lists.edit',
   'mb.lists.service',
   'mb.lists.factory',
   'mb.lists.viewer',
+  'mb.lists.reportViewer',
   'mb.lists.editor'
 ])
 /**
