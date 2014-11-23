@@ -27,7 +27,7 @@ angular.module( 'mb.home', [
   $stateProvider.state( 'home', {
     url: '/home',
     views: {
-      "main": {
+      "panel-lg": {
         controller: 'HomeCtrl',
         templateUrl: 'home/home.tpl.html'
       }
