@@ -15,14 +15,66 @@ angular.module( 'mb.about', [
     data:{ pageTitle: 'What is It?' }
   });
 })
+.directive('trooperExpand', function(Skills){
+  var link = function(scope, elem, attr, ngModelCtrl){
+console.log(Skills.getStyleBySkillId(1));
+  scope.Skills = Skills;
+  //scope.action
+  };
+  return {
+    link: link,
+    restrict: 'A',
+    replace: true,
+    template: '<td ng-click="action()" colspan="2">'+
+    '<span ng-repeat="skill in current.skills track by skill.id" class="skill-view" style="background: url(\'/assets/skills.png\') {{Skills.getStyleBySkillId(skill.id)}}"></span>'+
+    '{{current}}</td>'
+  };
+})
+.directive('trooperTable', function ttable(){
 
+var link = function(scope, elem, attr){
+
+  var info = $('<tr></tr>');
+
+  info.append($('#trooper-expand'));
+
+  $(elem).on('click', 'tr', function(event){
+
+    var trooperId, id = event.currentTarget.id;
+
+    if(id.indexOf('trooper-') === -1 || (trooperId = +id.split('-')[1]) === scope.current.id ){
+      return;
+    }
+    console.log('selectiong', id);
+    
+    $(event.currentTarget).after(info);
+    scope.current = scope.troopers[trooperId];
+    scope.$apply();
+  });
+};
+return {
+  link: link,
+  restrict: 'A'
+};
+
+})
 .controller( 'AboutCtrl', function AboutCtrl( $scope ) {
-  // This is simple a demo for UI Boostrap.
-  $scope.dropdownDemoItems = [
-    "The first choice!",
-    "And another choice for you.",
-    "but wait! A third!"
-  ];
+
+$scope.troopers = _.map(_.range(0, 500), 
+  function(i){
+return {
+  id: i,
+  name: 'trooper'+i,
+  skills: _.map(_.range(0,20), function(id){
+    return {
+      id:id
+    };
+  })
+};
+});
+
+$scope.current = $scope.troopers[0];
+console.log($scope.current.skills);
 })
 
 ;
